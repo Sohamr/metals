@@ -25,7 +25,7 @@ case class PantsBuildTool() extends BuildTool {
     List(
       workspace.resolve("pants").toString(),
       "--pants-config-files=pants.ini.scalameta",
-      "compile.zinc",
+      "compile.rsc",
       "--empty-compilation",
       "--cache-ignore",
       "--no-use-classpath-jars",
