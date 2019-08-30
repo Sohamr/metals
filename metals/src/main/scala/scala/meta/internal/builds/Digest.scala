@@ -91,6 +91,7 @@ object Digest {
         path.toString().endsWith(_)
       )
     val isXml = ext == "xml"
+    val isBUILD = path.toNIO.endsWith("BUILD")
 
     if (isScala && path.isFile) {
       digestScala(path, digest)
@@ -98,6 +99,8 @@ object Digest {
       digestGeneralJvm(path, digest)
     } else if (isXml) {
       digestXml(path, digest)
+    } else if (isBUILD) {
+      digestFileBytes(path, digest)
     } else {
       true
     }

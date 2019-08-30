@@ -94,6 +94,7 @@ final class BuildTools(
     else if (isGradle) GradleBuildTool.isGradleRelatedPath(workspace, path)
     else if (isMaven) MavenBuildTool.isMavenRelatedPath(workspace, path)
     else if (isMill) MillBuildTool.isMillRelatedPath(workspace, path)
+    else if (isPants) PantsBuildTool.isPantsRelatedPath(workspace, path)
     else false
   }
 }

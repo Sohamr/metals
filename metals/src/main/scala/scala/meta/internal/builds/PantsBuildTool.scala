@@ -4,10 +4,12 @@ import scala.meta.io.AbsolutePath
 import scala.meta.internal.metals.{MetalsServerConfig, UserConfiguration}
 
 case class PantsBuildTool() extends BuildTool {
+
+  override def toString(): String = "pants"
   def version: String = "1.0.0"
   def minimumVersion: String = "1.0.0"
   def recommendedVersion: String = "1.0.0"
-  def executableName: String = "bash"
+  def executableName: String = "pants"
   def digest(
       workspace: AbsolutePath,
       userConfig: UserConfiguration
@@ -20,7 +22,7 @@ case class PantsBuildTool() extends BuildTool {
       config: MetalsServerConfig
   ): List[String] = {
 
-    val command = List(
+    List(
       workspace.resolve("pants").toString(),
       "--pants-config-files=pants.ini.scalameta",
       "compile.zinc",
@@ -32,11 +34,13 @@ case class PantsBuildTool() extends BuildTool {
       "bloop.bloop-gen",
       "--execution-strategy=subprocess",
       userConfig().pantsTargets.getOrElse("::/")
-    ).mkString(" ")
-
-    List(
-      "-c",
-      command
     )
+
+  }
+}
+
+object PantsBuildTool {
+  def isPantsRelatedPath(workspace: AbsolutePath, path: AbsolutePath) = {
+    path.toNIO.endsWith("BUILD")
   }
 }

@@ -179,6 +179,7 @@ object UserConfiguration {
     }
     val pantsTargets =
       getStringKey("pants-targets")
+    pprint.log(pantsTargets)
 
     if (errors.isEmpty) {
       Right(
