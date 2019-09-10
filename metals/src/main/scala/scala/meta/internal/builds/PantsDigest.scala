@@ -17,9 +17,8 @@ object PantsDigest extends Digestable {
       case Some(pantsTargets) =>
         val args = List(
           workspace.resolve("pants").toString(),
-          "filedeps",
-          pantsTargets
-        )
+          "filedeps"
+        ) ++ pantsTargets.split(" ").map(_.trim).toList
         val pantsFileDeps = args.!!.trim
         pprint.log(pantsFileDeps)
         pantsFileDeps.linesIterator

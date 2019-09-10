@@ -22,6 +22,19 @@ case class PantsBuildTool() extends BuildTool {
       config: MetalsServerConfig
   ): List[String] = {
 
+    // List(
+    //   workspace.resolve("pants").toString(),
+    //   "compile.rsc",
+    //   "--empty-compilation",
+    //   "--cache-ignore",
+    //   "--no-use-classpath-jars",
+    //   "bloop.bloop-export-config",
+    //   "--sources",
+    //   "bloop.bloop-gen",
+    //   "--execution-strategy=subprocess",
+    //   "compile.errorprone",
+    //   "--skip",
+    // ) ++ userConfig().pantsTargets.getOrElse("::/").split(" ").map(_.trim).toList
     List(
       workspace.resolve("pants").toString(),
       "--pants-config-files=pants.ini.scalameta",
@@ -32,10 +45,12 @@ case class PantsBuildTool() extends BuildTool {
       "bloop.bloop-export-config",
       "--sources",
       "bloop.bloop-gen",
-      "--execution-strategy=subprocess",
-      userConfig().pantsTargets.getOrElse("::/")
-    )
-
+      "--execution-strategy=subprocess"
+    ) ++ userConfig().pantsTargets
+      .getOrElse("::/")
+      .split(" ")
+      .map(_.trim)
+      .toList
   }
 }
 

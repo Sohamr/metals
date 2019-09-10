@@ -720,7 +720,7 @@ class MetalsLanguageServer(
             compilers.restartAll()
           }
           if (userConfig.pantsTargets != old.pantsTargets) {
-            slowConnectToBuildServer(forceImport=false).ignoreValue
+            slowConnectToBuildServer(forceImport = false).ignoreValue
           } else {
             Future.successful(())
           }
